@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script language="JavaScript" src="../js/libs/firebase.js"></script>
+    <script language="JavaScript">
+        var testRef = new Firebase("https://wait-test.firebaseio.com/");
+        //建立孩子节点、
+//        var childRef = testRef.child("users");
+//        var childRef = new Firebase("https://wait-test.firebaseio.com/users")
+//        childRef.push("bb");
+//
+//        var parent = childRef.parent();
+//        parent.push("parent push");
+
+//        var nameRef = testRef.child("users/fred/name");
+//        nameRef.child("first").set("Shifan");
+//        nameRef.child("last").set("Huang");
+//        nameRef.set({first: "Wait", last: "Ze"});
+//        nameRef.update({first: "Shan", last: "Zhang"});
+//        nameRef.set({first:"Si", last:"Li"}, function(error)
+//        {
+//           if(error)
+//               alert("Data could not be saved: " + error);
+//            else
+//               alert("Data saved successfully.");
+//        });
+
+//        var dataRef = new Firebase("https://wait-test.firebaseio.com/users/fred/name/first");
+//        function onValue(snapshot)
+//        {
+//            alert("fred's first name is " + snapshot.val());
+//        }
+//        dataRef.on("value", onValue);
+
+        //https://www.firebase.com/docs/reading-data.html
+        //value:数据发生改变就收到回应(监听单个)
+//        var dataRef = new Firebase("https://wait-test.firebaseio.com/users/julie");
+//        dataRef.on("value", function(snapshot)
+//        {
+//            if(snapshot.val())
+//            {
+//                var firstName = snapshot.val().name.first;
+//                var lastName = snapshot.val().name.last;
+//                alert("User julie's full name is " + firstName + " " + lastName);
+//            }
+//            else
+//            {
+//                alert("User julie does not exist.");
+//            }
+//        });
+
+        //child_added:只有在数据(子节点)添加(只返回添加的)和第一次获取起作用
+//        var usersRef = new Firebase("https://wait-test.firebaseio.com/users");
+//        usersRef.on("child_added", function(snapshot)
+//        {
+//            var userName = snapshot.name(), userData = snapshot.val();
+//            alert("User " + userName + " has entered the chat");
+//        });
+
+        //child_changed:监听子节点的修改、删除起作用(当删除是把整个子节点删除时无效)
+//        var userRef = new Firebase("https://wait-test.firebaseio.com/users");
+//        userRef.on("child_changed", function(snapshot)
+//        {
+//            var userName = snapshot.name(), userData = snapshot.val();
+//            alert("User " + userName + " now has a name of " + userData.name.first + " " + userData.name.last);
+//        });
+
+        //child_removed:子节点删除(目录下的第一个)
+//        var usersRef = new Firebase("https://wait-test.firebaseio.com/users");
+//        usersRef.on("child_removed", function(snapshot)
+//        {
+//            var userName = snapshot.name(), userData = snapshot.val();
+//            alert("User " + userName + " has left the chat.");
+//        });
+
+        //onChild_moved: The Child Moved event is used when working with ordered data. See Ordered Data(https://www.firebase.com/docs/ordered-data.html) for details.
+
+        //取消单个监听
+//        dataRef.off("value", onValue);
+        //取消value的全部监听
+//        dataRef.off("value");
+        //取消全部监听
+//        dataRef.off();
+
+        //接受一次
+//        var dataRef = new Firebase("https://wait-test.firebaseio.com/users/julie");
+//        dataRef.once("value", function(snapshot)
+//        {
+//            if(snapshot.val())
+//            {
+//                var firstName = snapshot.val().name.first;
+//                var lastName = snapshot.val().name.last;
+//                alert("User julie's full name is " + firstName + " " + lastName);
+//            }
+//            else
+//            {
+//                alert("User julie does not exist.");
+//            }
+//        });
+        //上面的等价于
+        var dataRef = new Firebase("https://wait-test.firebaseio.com/users/julie");
+        dataRef.on("value", function(snapshot)
+        {
+            if(snapshot.val())
+            {
+                var firstName = snapshot.val().name.first;
+                var lastName = snapshot.val().name.last;
+                alert("User julie's full name is " + firstName + " " + lastName);
+            }
+            else
+            {
+                alert("User julie does not exist.");
+            }
+            dataRef.off("value", arguments.callee);
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

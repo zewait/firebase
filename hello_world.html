@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script language="JavaScript" src="js/libs/firebase.js"></script>
+
+</head>
+<body>
+    <div id="messagesDiv"></div>
+    <input type="text" id="nameInput" placeholder="Name" value="" />
+    <input type="text" id="messageInput" onkeypress="sendMsg()" placeholder="Message" value="" />
+
+    <script language="JavaScript">
+        var ref = new Firebase("https://wait-test.firebaseio.com/");
+        function sendMsg()
+        {
+            if(13 != event.keyCode) return;
+            var text = document.getElementById('messageInput').value;
+            var name = document.getElementById("nameInput").value;
+            //向数据库设置普通数据
+//            ref.set("User " + name + " says " + msg);
+            //向数据库设置对象
+//            ref.set({name: name, msg: msg});
+            //向数据库写入普通数据
+//            ref.push("User " + name + " says " + msg);
+            ref.push({name: name, text: text});
+            document.getElementById('messageInput').value = "";
+        }
+        document.getElementById("nameInput").setAttribute("value", "Wait");
+
+        function displayChatMessage(name, text)
+        {
+            var div = document.createElement("div");
+            div.innerHTML = "<em>" + name + ": </em>" + text;
+            document.getElementById("messagesDiv").appendChild(div);
+            window.scrollTo(0, document.body.clientHeight);
+        }
+        //添加后调用
+        ref.on("child_added", function(snapshot)
+        {
+            var message = snapshot.val();
+            displayChatMessage(message.name, message.text);
+        });
+
+
+    </script>
+</body>
+</html>

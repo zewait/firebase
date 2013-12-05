@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/libs/firebase.js"></script>
+    <script src="../js/libs/firebase-simple-login.js"></script>
+    <script>
+        var baseRef = new Firebase("https://wait-test.firebaseio.com");
+        var currentUser = null;
+        var auth = new FirebaseSimpleLogin(baseRef, function(error, user)
+        {
+            if(error)
+            {
+                console.log("Error code: " + error.code + ", message: " + error.message);
+            }
+            else
+            {
+                console.log("-------------user info begin--------------");
+                for(name in user)
+                {
+                    console.log(name + ": " + user[name]);
+                }
+                console.log("-------------user info end--------------");
+                currentUser = user;
+                console.log("login success");
+                saveData();
+            }
+        });
+        auth.login("password", {email:"773108248@qq.com", password:"1234", rememberMe:true});
+
+//        while(null == currentUser);
+
+        function saveData()
+        {
+            var contentRef = new Firebase("https://wait-test.firebaseio.com/contents");
+            contentRef.push({email: currentUser.email, text: "abc"}, function(error)
+            {
+                if(error)
+                {
+                    console.log("Error code: " + error);
+                }
+                else
+                {
+                    console.log("save data");
+                }
+
+            });
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -34,14 +34,33 @@
         // For this example, we’ll assume the priority on all chat messages has been set to
         // Unix epoch time of the time the message was sent.
         // This displays all chat messages sent at or after 7:32 PM on 2/11/2012:
-        console.log("Start at:1329017600");
-        messageListRef.startAt(1329017600).on("child_added", function(snapshot)
-        {
-            var messageInfo = snapshot.val();
-            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
-        });
-        console.log("End at 1329017600");
-        messageListRef.endAt(1329017600, "-J9yQIYUndM6VfW29fB0").on("child_added", function(snapshot)
+//        console.log("Start at:1329017600");
+//        messageListRef.startAt(1329017600).on("child_added", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+//        });
+//        console.log("End at 1329017600");
+//        messageListRef.endAt(1329017600).on("child_added", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+//        });
+
+
+//        messageListRef.endAt(1329017600, "-J9yQIYUndM6VfW29fB0").on("child_added", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+//        });
+
+//        messageListRef.startAt(1329017600).limit(50).on("child_added", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+//        });
+
+        messageListRef.startAt(1329017600).endAt(1329017600).on("child_added", function(snapshot)
         {
             var messageInfo = snapshot.val();
             console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);

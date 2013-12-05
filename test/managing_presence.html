@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/libs/firebase.js"></script>
+    <script>
+        var presenceRef = new Firebase("https://wait-test.firebaseio.com/disconnectmessage");
+        //Write a string when I lose my connection
+        presenceRef.onDisconnect().set("I disconnected!");
+
+//        var connectedRef = new Firebase("https://wait-test.firebaseio.com/.info/connected");
+//        connectedRef.on("value", function (snapshot)
+//        {
+//            if (true == snapshot.val())
+//            {
+//                console.log("connected");
+//            }
+//            else
+//            {
+//                console.log("not connected");
+//            }
+//        });
+//
+//        var offsetRef = new Firebase("https://wait-test.firebaseio.com/.info/serverTimeOffset");
+//        offsetRef.on("value", function(snapshot)
+//        {
+//            var offset = snapshot.val();
+//            console.log("offset ms: " + offset);
+//            var estimatedServerTimeMs = new Date().getTime() + offset;
+//            console.log("estimatedServerTimeMs: " + estimatedServerTimeMs);
+//        });
+
+//        var userLastOnlineRef = new Firebase("https://wait-test.firebaseio.com/users/fred/lastOnline");
+//        userLastOnlineRef.onDisconnect().set(Firebase.ServerValue.TIMESTAMP);
+
+        //////////////////////////////////////////////////////////////////////////
+        /////////////////////Building a Presence System//////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        // since I can connect from multiple devices or browser tabs, we store each connection instance separately
+        // any time that connectionsRef's values is null (i.e. has on children) I am offline
+//        var myConnectionsRef = new Firebase("https://wait-test.firebaseio.com/users/fred/connections");
+//        // stores the timestamp of my last disconnect(the last time I was seen online)
+//        var lastOnlineRef = new Firebase("https://wait-test.firebaseio.com/users/fred/lastOnline");
+//
+//        var connectedRef = new Firebase("https://wait-test.firebaseio.com/.info/connected");
+//
+//        connectedRef.on("value", function(snapshot)
+//        {
+//            if(snapshot.val())
+//            {
+//                // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
+//
+//                // add this device to my connections list
+//                // this value could contain info about the device or a timestamp too
+//                var con = myConnectionsRef.push(true);
+//
+//                // when I disconnect, remove this device
+//                con.onDisconnect().remove();
+//
+//                // when I disconnect, update the last time I was seen online
+//                lastOnlineRef.onDisconnect().set(Firebase.ServerValue.TIMESTAMP);
+//            }
+//        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

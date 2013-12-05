@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据并发解决</title>
+    <script src="../js/libs/firebase.js"></script>
+    <script>
+        var countRef = new Firebase("https://wait-test.firebaseio.com/total_messages");
+        /**
+         * 并发不安全
+         */
+//        function concurrencyNotSafe()
+//        {
+//            countRef.once("value", function(snapshot)
+//            {
+//                countRef.set(snapshot.val() + 1);
+//            });
+//        }
+//        for(var i=0; i<10; i++)
+//            concurrencyNotSafe();
+
+        /**
+         * 并发安全
+         */
+        function concurrencySafe()
+        {
+            countRef.transaction(function(currentValue)
+            {
+                return currentValue + 1;
+            },
+            //可不加
+            function(error, committed, snapshot)
+            {
+                alert("Was there an error?" + error);
+                alert("Did we commit the transaction?" + committed);
+                alert("The final valie is: " + snapshot.val());
+            });
+        }
+        for(var i=0; i<10; i++)
+            concurrencySafe();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

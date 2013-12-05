@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/libs/firebase.js"></script>
+    <script>
+        var listRef = new Firebase("https://wait-test.firebaseio.com/message_list");
+//        listRef.child("message1").set({user_id:"wilma", text:"Hello"});
+//        listRef.child("message2").set({user_id:"fred", text:"How are you?"});
+//        listRef.child("message3").set({user_id:"wilma", text:"I am doing well, Thank you!"});
+//        listRef.remove();
+
+//        var newRef = listRef.push();
+//        newRef.set({user_id: "wilma", text: "Hello"});
+//        var uniqueName = newRef.name();
+//        alert(uniqueName);
+
+        //These two methods are equivalent
+//        listRef.push().set({user_id:"wilma", text:"Hello Tom."});
+//        listRef.push({user_id:"wilma", text:"Hello Jack."});
+
+        //Remove List Data
+//        var msgRef = listRef.push({user_id:"wilma", text:"Remove"});
+//        msgRef.remove();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

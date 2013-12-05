@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/libs/firebase.js"></script>
+    <script>
+        var messageListRef = new Firebase("https://wait-test.firebaseio.com/message_list");
+        //最多100个响应
+        var messageListQueries = messageListRef.limit(100);
+//        messageListQueries.on("child_added", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+//        });
+//        messageListQueries.on("child_removed", function(snapshot)
+//        {
+//            var messageInfo = snapshot.val();
+//            console.log("-----------------child remove-----------------");
+//            console.log("Message " + messageInfo.text + " from user " + messageInfo.user_id + " should no longer to be displayed");
+//        });
+
+        /**
+         * 添加消息,优先级为时间
+         */
+//        function addMessageWithProority()
+//        {
+//            for(var i=0; i<100; i++)
+//            {
+//                messageListRef.push().setWithPriority({user_id: "Wait", text: "Hello" + i}, new Date().getTime());
+//            }
+//        }
+//        addMessageWithProority();
+
+        // For this example, we’ll assume the priority on all chat messages has been set to
+        // Unix epoch time of the time the message was sent.
+        // This displays all chat messages sent at or after 7:32 PM on 2/11/2012:
+        console.log("Start at:1329017600");
+        messageListRef.startAt(1329017600).on("child_added", function(snapshot)
+        {
+            var messageInfo = snapshot.val();
+            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+        });
+        console.log("End at 1329017600");
+        messageListRef.endAt(1329017600, "-J9yQIYUndM6VfW29fB0").on("child_added", function(snapshot)
+        {
+            var messageInfo = snapshot.val();
+            console.log("User " + messageInfo.user_id + "said: " + messageInfo.text);
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/libs/firebase.js"></script>
+    <script>
+        var tomRef = new Firebase("https://wait-test.firebaseio.com/users/tom");
+        // Add user tom and set a large priority so he is shown at the end of the list of users
+//        tomRef.setWithPriority({name:{first:"Tom", last:"Jones"}}, 99999);
+        tomRef.setPriority(null);
+
+        var listRef = tomRef.parent();
+        listRef.on("child_added", function(snapshot, prevChildName)
+        {
+            var userName = snapshot.name(), userData = snapshot.val();
+            var where = null==prevChildName ? "at the begining" : "after " + prevChildName;
+           console.log("User " + userName + " has enter chat and should appear " + where);
+        });
+
+
+        listRef.on('child_moved', function(snapshot, prevChildName)
+        {
+            var userName = snapshot.name(), userData = snapshot.val();
+            var where = (prevChildName === null) ? 'at the beginning' : 'after ' + prevChildName;
+            alert('User ' + userName + ' should now appear ' + where);
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
